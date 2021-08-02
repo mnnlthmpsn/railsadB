@@ -1,0 +1,140 @@
+<div class="row justify-content-center">
+  <div class="col-6">
+    <div id="errorDiv"></div>
+  </div>
+</div>
+
+<div class="row pt-2 pb-1" style="border-width: 1px;border-bottom-style: solid;border-bottom-color: rgb(236,239,242);">
+  <div class="col">
+    <div class="input-group col-8">
+      <%= link_to new_filter_path, remote: true do %>
+        <button class="btn btn-sm btn-success">Filter <i class="fas fa-filter ml-1"></i></button>
+      <% end %>
+    </div>
+  </div>
+  <div class="col d-lg-flex justify-content-lg-end">
+    <div class="btn-group btn-group-sm pb-3" role="group">
+      <%= link_to new_contact_path, remote:true  do %>
+        <button class="btn btn-sm btn-outline-info mr-1" type="button">Add Contact
+          <i class="fas fa-user-plus" style="padding-left: 5px;"></i>
+        </button>
+      <% end %>
+      <%= link_to regions_path do %>
+        <button class="btn btn-sm btn-outline-info mr-1" type="button">All Locations
+          <i class="fas fa-location-arrow" style="padding-left: 5px;"></i>
+        </button>
+      <% end %>
+      <% if user_signed_in? %>
+        <%= link_to destroy_user_session_path, method: :delete do %>
+          <button class="btn btn-sm btn-outline-info mr-1" type="button">Sign Out
+            <i class="fas fa-power-off" style="padding-left: 5px;"></i>
+          </button>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col pt-3 col-4 overflow-auto" style="height: 75vh;border-width: 1px;border-right-style: solid;border-right-color: rgb(236,239,242);">
+    <div style="height: 75vh;" id="contactRow">
+      <% if @contacts.empty? %>
+        <p class="text-center">
+          Click to Add Contact
+          <%= link_to '<i class="fas fa-plus"></i>'.html_safe, new_contact_path, remote: true %>
+        </p>
+      <% else %>
+        <%= render @contacts %>
+      <% end %>
+    </div>
+  </div>
+  <div class="col pt-3">
+    <div class="container" style="height: 75vh;">
+      <div class="col p-4" style="height: 70%" id="contact-details">
+        <div class="mb-3">
+          <% if @contacts.empty? %>
+          <p class="text-center lead">No Contacts Added yet</p>
+          <% else %>
+            <table class="table table-bordered">
+              <tr>
+                <td class="bg-dark text-white">
+                  <p class="lead m-0 p-0">Firstname</p>
+                </td>
+                <td>
+                  <p class="lead m-0 p-0 font-weight-bold">
+                    <%= @contacts[0].first_name %>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td class="bg-dark text-white">
+                  <p class="lead m-0 p-0">Lastname</p>
+                </td>
+                <td>
+                  <p class="lead m-0 p-0 font-weight-bold">
+                    <%= @contacts[0].last_name %>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td class="bg-dark text-white">
+                  <p class="lead m-0 p-0">Contact</p>
+                </td>
+                <td>
+                  <p class="lead m-0 p-0 font-weight-bold">
+                    <%= @contacts[0].contact_number %>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td class="bg-dark text-white">
+                  <p class="lead m-0 p-0">Region</p>
+                </td>
+                <td>
+                  <p class="lead m-0 p-0 font-weight-bold">
+                    <%= @contacts[0].town.city.region.region_desc %>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td class="bg-dark text-white">
+                  <p class="lead m-0 p-0">City</p>
+                </td>
+                <td>
+                  <p class="lead m-0 p-0 font-weight-bold">
+                    <%= @contacts[0].town.city.city_desc %>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td class="bg-dark text-white">
+                  <p class="lead m-0 p-0">Town</p>
+                </td>
+                <td>
+                  <p class="lead m-0 p-0 font-weight-bold">
+                    <%= @contacts[0].town.town_desc %>
+                  </p>
+                </td>
+              </tr>
+            </table>
+          <% end %>
+        </div>
+        <% if @contacts.any? %>
+          <div class="d-lg-flex justify-content-end">
+            <div class="btn-group" role="group">
+              <%= link_to edit_contact_path(@contacts[0]), remote: true do %>
+                <button class="btn btn-sm btn-info" type="button">Edit Contact
+                  <i class="far fa-edit" style="padding-left: 8px;"></i>
+                </button>
+              <% end %>
+              <%= link_to disable_contact_path(id: @contacts[0].id), method: :post, data: { confirm: "Are you sure?"}, remote: true do %>
+                <button class="btn btn-sm btn-danger ml-1" type="button">Delete Contact
+                  <i class="fas fa-trash" style="padding-left: 8px;"></i>
+                </button>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

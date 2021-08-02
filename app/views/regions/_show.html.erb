@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="card mb-5" style="width: 50vw; height: 52vh">
+    <div class="card-header pt-3">
+      <div class="row justify-content-between px-3">
+        <p class="text-info m-0"><%= @region.region_desc %> | Cities</p>
+        <%= link_to '<button class="btn btn-sm btn-outline-info mr-1" type="button">Add City
+                                  <i class="fas fa-plus" style="padding-left: 5px;"></i>
+                                </button>'.html_safe, new_region_city_path(region_id: @region), remote: true %>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive table" id="dataTable" role="grid" aria-describedby="dataTable_info" style="height: 100%">
+        <table class="table my-0 citable" id="dataTable">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Description</th>
+            <th>Comment
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody id="trial_id">
+          <% if @region.cities.empty?%>
+            <td colspan="4">
+              <p class="text-center lead">No cities Added</p>
+            </td>
+          <% else %>
+              <%= render @region.cities.where(active_status:true, del_status: false) %>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="row justify-content-around">
+        <div>
+          <p>Comments: <%= @region.comment %></p>
+        </div>
+        <div>
+          <div class="d-lg-flex justify-content-lg-end">
+            <div class="btn-group" role="group" id="actionArea" hidden>
+              <%= link_to '<button class="btn btn-sm btn-info" type="button">Edit Region
+                <i class="far fa-edit" style="padding-left: 8px;"></i>
+              </button>'.html_safe, edit_region_path(id: @region.id), remote: true %>
+              <%= link_to '<button class="btn btn-sm btn-danger ml-1" type="button">Delete Region
+                <i class="fas fa-trash" style="padding-left: 8px;"></i>
+              </button>'.html_safe, disable_region_path(id: @region.id), method: :post, data: { confirm: "Are you sure?"}, remote: true %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

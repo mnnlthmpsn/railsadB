@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="card mb-5" style="width: 50vw; height: 52vh">
+    <div class="card-header pt-3">
+      <div class="row justify-content-between px-3">
+        <p class="text-info m-0"><%= @town.city.city_desc %> | Town Details</span> </p>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card mb-1">
+        <div class="card-body">
+          <p class="m-0 p-0 text-info">Region : <span class="text-black-50 lead" id="town_desc"><%= @town.city.region.region_desc %></span></p>
+          <p class="m-0 p-0 text-info">City : <span class="text-black-50 lead" id="town_desc"><%= @town.city.city_desc %></span></p>
+          <p class="m-0 p-0 text-info">Description : <span class="text-black-50 lead" id="town_desc"><%= @town.town_desc %></span></p>
+          <p class="m-0 p-0 text-info">Comments : <span class="text-black-50 lead" id="town_comment"><%= @town.comment %></span></p>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="row">
+        <div class="col-6">
+
+        </div>
+        <div class="col-6">
+          <div class="d-lg-flex justify-content-lg-end">
+            <div class="btn-group" role="group" id="actionArea" hidden>
+              <%= link_to edit_region_city_town_path(id: @town.id, city_id: @town.city_id), remote: true  do %>
+                <button class="btn btn-sm btn-info" type="button">Edit Town
+                  <i class="far fa-edit" style="padding-left: 8px;"></i>
+                </button>
+              <% end %>
+              <%= link_to disable_town_path(id: @town.id), method: :post, data: { confirm: "Are you sure?"}, remote: true do %>
+              <button class="btn btn-sm btn-danger ml-1" type="button">Delete Town
+                <i class="fas fa-trash" style="padding-left: 8px;"></i>
+              </button>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

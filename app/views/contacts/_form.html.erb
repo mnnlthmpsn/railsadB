@@ -1,0 +1,61 @@
+<div class="modal fade" role="dialog" tabindex="-1" id="modal">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="lead"><%= name %></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" id="modal-close">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row justify-content-center">
+          <div class="col-12">
+            <div class="card shadow-sm p-5">
+              <%= simple_form_for contact, remote: true do |f| %>
+                <%= f.error_notification %>
+                <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+                <div class="form-inputs">
+                  <%= f.input :first_name %>
+                  <%= f.input :last_name %>
+                  <%= f.input :contact_number %>
+                  <%= f.input :region, :collection => @regions, label_method: :region_desc, value_method: :id, prompt: 'Select Region', input_html: { id: "regionDD", onchange: "getCities()" }, selected: @selected_region %>
+                  <%= f.input :city, :collection => [], label_method: :city_desc, value_method: :id, input_html: { id: "cityDD", onchange: "getTowns()", disabled: true }, selected: @selected_city %>
+                  <%= f.association :town, :collection => [], label_method: :town_desc, value_method: :id, input_html: { id: "townDD", disabled: true }, selected: @selected_town%>
+                </div>
+
+                <div class="form-actions">
+                  <%= f.button :submit, class: "btn btn-sm btn-info" %>
+                </div>
+              <% end %>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" charset="utf-8">
+  const getCities = () => {
+      const region = $('#regionDD').children('option:selected').val()
+      region !== "" && $.ajax({
+          url: '<%= city_list_path %>',
+          data: {
+              region_id: region
+          },
+          dataType: 'script'
+      })
+  }
+
+  const getTowns = () => {
+      const city = $('#cityDD').children('option:selected').val()
+      city !== "" && $.ajax({
+          url: '<%= town_list_path %>',
+          data: {
+              city_id: city
+          },
+          dataType: 'script'
+      })
+  }
+</script>

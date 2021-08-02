@@ -1,0 +1,78 @@
+  <div class="mb-3">
+    <table class="table table-bordered">
+    <tr>
+      <td class="bg-dark text-white">
+        <p class="lead m-0 p-0">Firstname</p>
+      </td>
+      <td>
+        <p class="lead m-0 p-0 font-weight-bold">
+          <%= @contact.first_name %>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td class="bg-dark text-white">
+        <p class="lead m-0 p-0">Lastname</p>
+      </td>
+      <td>
+        <p class="lead m-0 p-0 font-weight-bold">
+          <%= @contact.last_name %>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td class="bg-dark text-white">
+        <p class="lead m-0 p-0">Contact</p>
+      </td>
+      <td>
+        <p class="lead m-0 p-0 font-weight-bold">
+          <%= @contact.contact_number %>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td class="bg-dark text-white">
+        <p class="lead m-0 p-0">Region</p>
+      </td>
+      <td>
+        <p class="lead m-0 p-0 font-weight-bold">
+          <%= @contact.town.city.region.region_desc %>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td class="bg-dark text-white">
+        <p class="lead m-0 p-0">City</p>
+      </td>
+      <td>
+        <p class="lead m-0 p-0 font-weight-bold">
+          <%= @contact.town.city.city_desc %>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td class="bg-dark text-white">
+        <p class="lead m-0 p-0">Town</p>
+      </td>
+      <td>
+        <p class="lead m-0 p-0 font-weight-bold">
+          <%= @contact.town.town_desc %>
+        </p>
+      </td>
+    </tr>
+  </table>
+  </div>
+  <div class="d-lg-flex justify-content-end">
+    <div class="btn-group" role="group">
+      <%= link_to edit_contact_path(@contact), remote: true do %>
+        <button class="btn btn-sm btn-info" type="button">Edit Contact
+          <i class="far fa-edit" style="padding-left: 8px;"></i>
+        </button>
+      <% end %>
+      <%= link_to disable_contact_path(id: @contact.id), method: :post, data: { confirm: "Are you sure?"}, remote: true do %>
+        <button class="btn btn-sm btn-danger ml-1" type="button">Delete Contact
+          <i class="fas fa-trash" style="padding-left: 8px;"></i>
+        </button>
+      <% end %>
+    </div>
+  </div>

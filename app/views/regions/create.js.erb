@@ -1,0 +1,4 @@
+$('.modal-backdrop').remove()
+$('#modal').modal('hide')
+$('#regionRow').html("<%= escape_javascript(render(:partial => @regions)) %>")
+$('#errorDiv').html("<%= escape_javascript(render('layouts/flash')) %>")

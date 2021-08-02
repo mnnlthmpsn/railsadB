@@ -1,0 +1,14 @@
+$('#modal-space').html('<%= escape_javascript(render(:partial =>"edit")) %>')
+$('#modal').modal('show')
+
+//remove disable prop on #cityDD and auto-populate with data
+$('#cityDD').removeAttr('disabled')
+<% @cities.each do |city| %>
+$('#cityDD').append($('<option></option>').val('<%= escape_javascript(city.id) %>').text('<%= escape_javascript(city.city_desc) %>'));
+<% end %>
+
+//remove disable prop on #townDD and auto-populate with data
+$('#townDD').removeAttr('disabled')
+<% @towns.each do |town| %>
+$('#townDD').append($('<option></option>').val('<%= escape_javascript(town.id) %>').text('<%= escape_javascript(town.town_desc) %>'));
+<% end %>

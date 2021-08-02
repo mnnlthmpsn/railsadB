@@ -1,0 +1,14 @@
+ <tr id="city-<%= city.id %>">
+   <td><%= city.id %></td>
+    <td><%= city.city_desc %></td>
+    <td><%= city.comment %></td>
+    <td>
+      <div class="btn-group btn-group-sm" role="group">
+        <%= link_to '<i class="fas fa-eye text-warning" style="padding-left: 5px;"></i>'.html_safe, region_city_path(region_id: city.region_id, id: city.id) %>
+        <%= link_to '<i class="fas fa-edit text-success" style="padding-left: 5px;"></i>'.html_safe, edit_region_city_path(region_id: city.region_id, id: city.id), remote: true %>
+        <%= link_to '<i class="fas fa-trash text-danger" style="padding-left: 5px;"></i>'.html_safe, disable_city_path(id: city.id), method: :post, data: { confirm: "Are you sure?" }, remote: true %>
+
+
+      </div>
+    </td>
+ </tr>

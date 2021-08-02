@@ -1,0 +1,9 @@
+$('.modal-backdrop').remove()
+$('#modal').modal('hide')
+$('#townRow').html("<%= escape_javascript(render(:partial => @city.towns.where(active_status: true, del_status: false))) %>")
+$('#townFlash').html("<%= escape_javascript(render('layouts/flash')) %>")
+
+//automatically close alert
+window.setTimeout(function () {
+    $("#alert").alert('close');
+}, 2000)

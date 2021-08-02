@@ -1,0 +1,61 @@
+<div class="modal fade" role="dialog" tabindex="-1" id="modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="lead">Filter By</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" id="modal-close">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div>
+                            <%= simple_form_for :filter, url: apply_filter_path, remote: true do |f| %>
+                                <div class="row">
+                                    <div class="col-6">
+                                      <%= f.input :firstname, required: false, input_html: { class: 'form-control-sm' } %>
+                                    </div>
+                                    <div class="col-6">
+                                      <%= f.input :lastname, required: false, input_html: { class: 'form-control-sm' } %>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                      <%= f.input :contact_number, required: false, input_html: { class: 'form-control-sm' } %>
+                                    </div>
+                                    <div class="col-6">
+                                      <%= f.input :region, collection: @regions, required: false, include_blank: false, input_html: { class: 'form-control-sm' } %>
+                                    </div>
+                                </div>
+                            <div class="row">
+                              <div class="col-6">
+                                <%= f.input :city, collection: @cities, required: false, include_blank: false, input_html: { class: 'form-control-sm' } %>
+                              </div>
+                              <div class="col-6">
+                                <%= f.input :town, collection: @towns, required: false, include_blank: false, input_html: { class: 'form-control-sm' } %>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-6">
+                                <%= f.input :start_date, required: false, input_html: { class: 'form-control-sm', type: 'date' } %>
+                              </div>
+                              <div class="col-6">
+                                <%= f.input :end_date, required: false, input_html: { class: 'form-control-sm', type: 'date' } %>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <%= f.button :submit, 'Filter', class: 'btn btn-sm btn-success' %>
+                              <button class="btn btn-sm btn-warning">
+                                Clear Filter
+                              </button>
+                            </div>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

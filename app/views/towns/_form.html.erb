@@ -1,0 +1,34 @@
+<div class="modal fade" role="dialog" tabindex="-1" id="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="lead"><%= name %></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" id="modal-close">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row justify-content-center">
+          <div class="col-12">
+            <div class="card shadow-sm p-5">
+              <%= simple_form_for [@region, @city, @town], remote:true do |f| %>
+                <%= f.error_notification %>
+                <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+                <div class="form-inputs">
+                  <%= f.input :town_desc %>
+                  <%= f.input :comment %>
+                </div>
+
+                <div class="form-actions">
+                  <%= f.button :submit, class: 'btn btn-sm btn-info' %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

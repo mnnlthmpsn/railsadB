@@ -1,0 +1,15 @@
+$('#modal').modal('hide')
+$('#fullName-<%= @contact.id %>').html('<span><%= @contact.get_full_name %></span>')
+$('#showFirstname').html('<span><%= @contact.first_name %></span>')
+$('#showLastname').html('<span><%= @contact.last_name %></span>')
+$('#showPhone').html('<span><%= @contact.contact_number %></span>')
+$('#showRegion').html('<span><%= @contact.town.city.region.region_desc %></span>')
+$('#showCity').html('<span><%= @contact.town.city.city_desc %></span>')
+$('#showTown').html('<span><%= @contact.town.town_desc %></span>')
+
+$('#errorDiv').html("<%= escape_javascript(render('layouts/flash')) %>")
+
+//automatically close alert
+window.setTimeout(function () {
+    $("#alert").alert('close');
+}, 2000)

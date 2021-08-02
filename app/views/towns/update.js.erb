@@ -1,0 +1,4 @@
+$('#modal').modal('hide')
+$('span#town_desc').html('<span class="text-black-50"><%= @town.town_desc %></span>')
+$('span#town-<%= @town.id %>').html('<span><%= @town.town_desc %></span>')
+$('span#town_comment').html('<span class="text-black-50"><%= @town.comment %></span>')

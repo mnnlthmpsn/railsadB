@@ -1,0 +1,2 @@
+$('#modal').modal('hide')
+$('#trial_id').html("<%= escape_javascript(render(:partial => @region.cities.where(active_status: true, del_status: false))) %>")

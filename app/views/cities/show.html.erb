@@ -1,0 +1,88 @@
+<div class="row justify-content-center">
+  <div class="col-6">
+    <div id="townFlash"></div>
+  </div>
+</div>
+<div class="row pt-2 pb-1" style="border-width: 1px;border-bottom-style: solid;border-bottom-color: rgb(236,239,242);">
+  <div class="col">
+    <div class="input-group col-8"><input class="form-control" type="text" placeholder="Search">
+      <div class="input-group-append"><button class="btn btn-info" type="button"><i class="fas fa-search"></i></button></div>
+    </div>
+  </div>
+  <div class="col d-lg-flex justify-content-lg-end">
+    <div class="btn-group btn-group-sm pb-3" role="group">
+      <%= link_to '<button class="btn btn-sm btn-outline-info mr-1" type="button">Back
+                                  <i class="fas fa-arrow-left" style="padding-left: 5px;"></i>
+                                </button>'.html_safe, :back %>
+      <%= link_to '<button class="btn btn-sm btn-outline-info mr-1" type="button">Add Town
+                                  <i class="fas fa-plus" style="padding-left: 5px;"></i>
+                                </button>'.html_safe, new_region_city_town_path(city_id: @city.id), remote: true %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col pt-3 col-4 overflow-auto" id="townRow" style="height: 75vh;border-width: 1px;border-right-style: solid;border-right-color: rgb(236,239,242);">
+    <div style="height: 75vh;">
+      <%= render @city.towns.where(active_status: true, del_status: false) %>
+    </div>
+  </div>
+  <div class="col pt-3">
+    <div class="container" style="height: 75vh;">
+      <div class="col" style="height: 70%">
+        <div>
+          <div class="row justify-content-center" id="townDetailMain">
+            <div id="region-details">
+              <% if @city.towns.exists? %>
+                <div class="container">
+                  <div class="card mb-5" style="width: 50vw; height: 52vh">
+                    <div class="card-header pt-3">
+                      <div class="row justify-content-between px-3">
+                        <p class="text-info m-0"><%= @city.towns.where(active_status: true, del_status: false)[0].city.city_desc %> | Town Details</span> </p>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="card mb-1">
+                        <div class="card-body">
+                          <p class="m-0 p-0 text-info">Region : <span class="text-black-50 lead" id="town_desc"><%= @city.towns.where(active_status: true, del_status: false)[0].city.region.region_desc %></span></p>
+                          <p class="m-0 p-0 text-info">City : <span class="text-black-50 lead" id="town_desc"><%= @city.towns.where(active_status: true, del_status: false)[0].city.city_desc %></span></p>
+                          <p class="m-0 p-0 text-info">Description : <span class="text-black-50 lead" id="town_desc"><%= @city.towns.where(active_status: true, del_status: false)[0].town_desc %></span></p>
+                          <p class="m-0 p-0 text-info">Comments : <span class="text-black-50 lead" id="town_comment"><%= @city.towns.where(active_status: true, del_status: false)[0].comment %></span></p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-footer">
+                      <div class="row">
+                        <div class="col-6">
+                        </div>
+                        <div class="col-6">
+                          <div class="d-lg-flex justify-content-lg-end">
+                            <div class="btn-group" role="group" id="actionArea">
+                              <%= link_to edit_region_city_town_path(id: @city.towns.where(active_status: true, del_status: false)[0].id, city_id: @city.towns.where(active_status: true, del_status: false)[0].city_id), remote: true do %>
+                                <button class="btn btn-sm btn-info" type="button">Edit Town
+                                  <i class="far fa-edit" style="padding-left: 8px;"></i>
+                                </button>
+                              <% end %>
+                              <%= link_to disable_town_path(id: @city.towns.where(active_status: true, del_status: false)[0].id), method: :post, data: { confirm: "Are you sure?"}, remote: true do %>
+                                <button class="btn btn-sm btn-danger ml-1" type="button">Delete Town
+                                  <i class="fas fa-trash" style="padding-left: 8px;"></i>
+                                </button>
+                              <% end %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% else %>
+                <div class="container mt-5">
+                  <p class="lead">Click Add Town to Add town to <strong><%= @city.city_desc %></strong></p>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

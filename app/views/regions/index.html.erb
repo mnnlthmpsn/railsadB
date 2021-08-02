@@ -1,0 +1,96 @@
+<div class="row pt-2 pb-1" style="border-width: 1px;border-bottom-style: solid;border-bottom-color: rgb(236,239,242);">
+  <div class="col">
+    <div class="input-group col-8"><input class="form-control" type="text" placeholder="Search">
+      <div class="input-group-append"><button class="btn btn-info" type="button"><i class="fas fa-search"></i></button></div>
+    </div>
+  </div>
+  <div class="col d-lg-flex justify-content-lg-end">
+    <div class="btn-group btn-group-sm pb-3" role="group">
+      <%= link_to '<button class="btn btn-sm btn-outline-info mr-1" type="button">Back
+                                  <i class="fas fa-arrow-left" style="padding-left: 5px;"></i>
+                                </button>'.html_safe, root_path %>
+      <%= link_to '<button class="btn btn-sm btn-outline-info" type="button">Add Region
+                                  <i class="fas fa-plus" style="padding-left: 5px;"></i>
+                                </button>'.html_safe, new_region_path, remote: true %>
+
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col pt-3 col-4 overflow-auto" id="contactRow" style="height: 75vh;border-width: 1px;border-right-style: solid;border-right-color: rgb(236,239,242);">
+    <div style="height: 75vh;" id="regionRow">
+      <%= render @regions %>
+    </div>
+  </div>
+  <div class="col pt-3">
+    <div class="container" style="height: 75vh;">
+      <div class="col" style="height: 70%">
+        <div>
+          <div class="row justify-content-center" id="regionDetailMain">
+            <div id="region-details">
+              <% if @regions.empty? %>
+                <p class="lead text-center mt-5">Click Add Region to add region</p>
+              <% else %>
+                <div class="container">
+                  <div class="card mb-5" style="width: 50vw; height: 52vh">
+                    <div class="card-header pt-3">
+                      <div class="row justify-content-between px-3">
+                        <p class="text-info m-0"><%= @regions[0].region_desc %> | Cities</p>
+                        <%= link_to '<button class="btn btn-sm btn-outline-info mr-1" type="button">Add City
+                                  <i class="fas fa-plus" style="padding-left: 5px;"></i>
+                                </button>'.html_safe, new_region_city_path(region_id: @regions[0].id), remote: true %>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive table" id="dataTable" role="grid" aria-describedby="dataTable_info" style="height: 100%">
+                        <table class="table my-0 citable" id="dataTable">
+                          <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Description</th>
+                            <th>Comment
+                            <th>Actions</th>
+                          </tr>
+                          </thead>
+                          <tbody id="trial_id">
+                          <% if @regions[0].cities.empty?%>
+                            <td colspan="4">
+                              <p class="text-center lead">No cities Added</p>
+                            </td>
+                          <% else %>
+                            <%= render @regions[0].cities.where(active_status:true, del_status: false) %>
+                          <% end %>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="card-footer">
+                      <div class="row justify-content-around">
+                        <div>
+                          <p>Comments: <%= @regions[0].comment %></p>
+                        </div>
+                        <div>
+                          <div class="d-lg-flex justify-content-lg-end">
+                            <div class="btn-group" role="group" id="actionArea">
+                              <%= link_to '<button class="btn btn-sm btn-info" type="button">Edit Region
+                <i class="far fa-edit" style="padding-left: 8px;"></i>
+              </button>'.html_safe, edit_region_path(id: @regions[0].id), remote: true %>
+                              <%= link_to '<button class="btn btn-sm btn-danger ml-1" type="button">Delete Region
+                <i class="fas fa-trash" style="padding-left: 8px;"></i>
+              </button>'.html_safe, disable_region_path(id: @regions[0].id), method: :post, data: { confirm: "Are you sure?"}, remote: true %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
